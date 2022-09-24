@@ -187,3 +187,33 @@ public enum InputMode {
     case voiceActivity
     case pushToTalk
 }
+
+typealias ClientID = Int64
+
+typealias Version = Int32
+
+typealias Snowflake = Int64
+
+typealias Timestamp = Int64
+
+typealias UserID = Snowflake
+
+typealias Locale = String
+
+typealias Branch = String
+
+typealias LobbyID = Snowflake
+
+typealias LobbySecret = String
+
+typealias MetadataKey = String
+
+typealias MetadataValue = String
+
+typealias NetworkPeerID = UInt64
+
+typealias NetworkChannelID = UInt8
+
+typealias Path = String
+
+typealias DateTime = String
