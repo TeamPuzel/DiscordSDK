@@ -1,5 +1,5 @@
 
-module DiscordSDK {
+module CDiscordSDK {
     header "discord_game_sdk.h"
     export *
 }

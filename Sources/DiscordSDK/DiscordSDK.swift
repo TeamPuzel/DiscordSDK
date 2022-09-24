@@ -5,7 +5,11 @@
 //  24/09/2022
 //
 
-public enum Result {
+//import CDiscordSDK
+
+// MARK: Enums
+
+public enum DSResult {
     case ok
     case serviceUnavailable
     case invalidVersion
@@ -53,19 +57,19 @@ public enum Result {
     case drawingInitFailed
 }
 
-public enum CreateFlags {
+public enum DSCreateFlags {
     case `default`
     case noRequireDiscord
 }
 
-public enum LogLevel {
+public enum DSLogLevel {
     case error
     case warning
     case info
     case debug
 }
 
-public enum UserFlag {
+public enum DSUserFlag {
     case partner
     case hypeSquadevents
     case hypeSquadHouse1
@@ -73,53 +77,53 @@ public enum UserFlag {
     case hypeSquadHouse3
 }
 
-public enum PremiumType {
+public enum DSPremiumType {
     case none
     case tier1
     case tier2
 }
 
-public enum ImageType {
+public enum DSImageType {
     case user
 }
 
-public enum PartyPrivacy {
+public enum DSPartyPrivacy {
     case `private`
     case `public`
 }
 
-public enum ActivityType {
+public enum DSActivityType {
     case playing
     case streaming
     case listening
     case watching
 }
 
-public enum ActionType {
+public enum DSActionType {
     case join
     case spectate
 }
 
-public enum SupportedPlatform {
+public enum DSSupportedPlatform {
     case desktop
     case android
     case iOS
 }
 
-public enum JoinRequestReply {
+public enum DSJoinRequestReply {
     case no
     case yes
     case ignore
 }
 
-public enum Status {
+public enum DSStatus {
     case offline
     case online
     case idle
     case doNotDisturb
 }
 
-public enum RelationshipType {
+public enum DSRelationshipType {
     case none
     case friend
     case blocked
@@ -128,12 +132,12 @@ public enum RelationshipType {
     case implicit
 }
 
-public enum LobbyType {
+public enum DSLobbyType {
     case `private`
     case `public`
 }
 
-public enum SearchComparison {
+public enum DSSearchComparison {
     case lessThanOrEqual
     case lessThan
     case equal
@@ -142,31 +146,31 @@ public enum SearchComparison {
     case notEqual
 }
 
-public enum SearchCast {
+public enum DSSearchCast {
     case string
     case number
 }
 
-public enum SearchDistance {
+public enum DSSearchDistance {
     case local
     case `default`
     case extended
     case global
 }
 
-public enum KeyVariant {
+public enum DSKeyVariant {
     case normal
     case right
     case left
 }
 
-public enum MouseButton {
+public enum DSMouseButton {
     case left
     case middle
     case right
 }
 
-public enum EntitlementType {
+public enum DSEntitlementType {
     case purchase
     case premiumSubscription
     case developerGift
@@ -176,44 +180,188 @@ public enum EntitlementType {
     case premiumPurchase
 }
 
-public enum SkuType {
+public enum DSSkuType {
     case application
     case dlc
     case consumable
     case bundle
 }
 
-public enum InputMode {
+public enum DSInputModeType {
     case voiceActivity
     case pushToTalk
 }
 
-typealias ClientID = Int64
+// MARK: Typealiae
 
-typealias Version = Int32
+public typealias DSClientID = Int64
 
-typealias Snowflake = Int64
+public typealias DSVersion = Int32
 
-typealias Timestamp = Int64
+public typealias DSSnowflake = Int64
 
-typealias UserID = Snowflake
+public typealias DSTimestamp = Int64
 
-typealias Locale = String
+public typealias DSUserID = DSSnowflake
 
-typealias Branch = String
+public typealias DSLocale = String
 
-typealias LobbyID = Snowflake
+public typealias DSBranch = String
 
-typealias LobbySecret = String
+public typealias DSLobbyID = DSSnowflake
 
-typealias MetadataKey = String
+public typealias DSLobbySecret = String
 
-typealias MetadataValue = String
+public typealias DSMetadataKey = String
 
-typealias NetworkPeerID = UInt64
+public typealias DSMetadataValue = String
 
-typealias NetworkChannelID = UInt8
+public typealias DSNetworkPeerID = UInt64
 
-typealias Path = String
+public typealias DSNetworkChannelID = UInt8
 
-typealias DateTime = String
+public typealias DSPath = String
+
+public typealias DSDateTime = String
+
+
+// MARK: Structures
+
+public struct DSUser {
+    let id: DSUserID
+    let username: String
+    let discriminator: String
+    let avatar: String
+    let isBot: Bool
+}
+
+public struct DSOAuth2Token {
+    let accessToken: String
+    let scopes: String
+    let expires: DSTimestamp
+}
+
+public struct DSImageHandle {
+    let type: DSImageType
+    let id: Int64
+    let size: UInt32
+}
+
+public struct DSImageDimensions {
+    let width: UInt32
+    let height: UInt32
+}
+
+public struct DSActivityTimestamps {
+    let start: DSTimestamp
+    let end: DSTimestamp
+}
+
+public struct DSActivityAssets {
+    let largeImage: String
+    let largeText: String
+    let smallImage: String
+    let smallText: String
+}
+
+public struct DSPartySize {
+    let currentSize: Int32
+    let maxSize: Int32
+}
+
+public struct DSActivityParty {
+    let id: String
+    let size: DSPartySize
+    let privacy: DSPartyPrivacy
+}
+
+public struct DSActivitySecrets {
+    let match: String
+    let join: String
+    let spectate: String
+}
+
+public struct DSActivity {
+    let type: DSActionType
+    let applicationID: Int64
+    let name: String
+    let state: String
+    let details: String
+    let timestamps: DSTimestamp
+    let assets: DSActivityAssets
+    let party: DSActivityParty
+    let secrets: DSActivitySecrets
+    let instance: Bool
+    let supportedPlatforms: UInt32
+}
+
+public struct DSPresence {
+    let status: DSStatus
+    let activity: DSActivity
+}
+
+public struct DSRelationship {
+    let type: DSRelationshipType
+    let user: DSUser
+    let presence: DSPresence
+}
+
+public struct DSLobby {
+    let id: DSLobbyID
+    let type: DSLobbyType
+    let ownerID: DSUserID
+    let secret: DSLobbySecret
+    let capacity: UInt32
+    let isLocked: Bool
+}
+
+public struct DSImeUnderline {
+    let from: Int32
+    let to: Int32
+    let color: UInt32
+    let backgroundColor: UInt32
+    let isThick: Bool
+}
+
+public struct DSRect {
+    let left: Int32
+    let top: Int32
+    let right: Int32
+    let bottom: Int32
+}
+
+public struct DSFileStat {
+    let filename: String
+    let size: UInt64
+    let lastModified: UInt64
+}
+
+public struct DSEntitlement {
+    let id: DSSnowflake
+    let type: DSEntitlementType
+    let skuID: DSSnowflake
+}
+
+public struct DSSkuPrice {
+    let amount: UInt32
+    let currency: String
+}
+
+public struct DSSku {
+    let id: DSSnowflake
+    let type: DSSkuType
+    let name: String
+    let price: DSSkuPrice
+}
+
+public struct DSInputMode {
+    let type: DSInputModeType
+    let shortcut: String
+}
+
+public struct DSUserAchievement {
+    let userID: DSSnowflake
+    let achievementID: DSSnowflake
+    let percentComplete: UInt8
+    let unlockedAt: DSDateTime
+}
